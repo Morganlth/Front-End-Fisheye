@@ -1,9 +1,9 @@
-/*----------------------------------------------- #||--PhotographerOverview--|| */
+/*----------------------------------------------- #||--PhotographerCard--|| */
 
 
 /*-- #|-CLASS-| --*/
 
-class PhotographerOverview extends Photographer
+class PhotographerCard extends Photographer
 {
 
 // #\-STATICS-\
@@ -119,4 +119,4 @@ class PhotographerOverview extends Photographer
 // #\-EXPORTS-\
 
     // --THIS
-    export default PhotographerOverview
+    export default PhotographerCard

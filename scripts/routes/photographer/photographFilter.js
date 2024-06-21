@@ -57,21 +57,18 @@
 
     // --INDIDE
     const
-    DROPDOWN = document.querySelector('.dropdown')
+    DROPDOWN = document.getElementById('dropdown')
     ,
-    DROPDOWN_EVENTS =
+    DROPDOWN_EVENTS = { click: dropdown_e$Click },
+    DROPDOWN_EVENTS_2 =
     {
-        click  : dropdown_e$Click,
-        keydown: dropdown_e$Keydown
+        click  : dropdown_eClick,
+        keydown: dropdown_eKeydown
     }
 
-    const CONTROLLER = DROPDOWN?.querySelector('#controller')
+    const OPTIONS = DROPDOWN?.querySelector('#options')
 
-    const STATE = DROPDOWN?.querySelector('#state')
-
-    const INPUT_INPUTS = [...DROPDOWN?.querySelectorAll('input[type="radio"]')]
-
-    const OPTION_OPTIONS = [...DROPDOWN?.querySelectorAll('#options .option')]
+    const OPTION_OPTIONS = [...OPTIONS?.querySelectorAll('.option')]
 
 
 // #\-VARIABLES-\
@@ -82,6 +79,8 @@
     ,
     dropdown_FOCUSABLE_INDEX = 0
 
+    let option_SELECTED
+
 
 // #\-FUNCTIONS-\
 
@@ -89,8 +88,6 @@
     function photographFilter_set()
     {
         dropdown_set()
-        controller_set()
-        input_iter()
         option_iter()
     }
 
@@ -101,35 +98,31 @@
         dropdown_setEvents()
     }
 
-    function dropdown_setVars() { dropdown_FOCUSABLE = [CONTROLLER, ...OPTION_OPTIONS] }
+    function dropdown_setVars() { dropdown_FOCUSABLE = [DROPDOWN, ...OPTION_OPTIONS] }
 
-    function dropdown_setEvents() { EVENTS.events_add(DROPDOWN_EVENTS) }
-
-
-    function controller_set() { controller_setEvents() }
-
-    function controller_setEvents() { CONTROLLER?.addEventListener('keydown', controller_eKeydown) }
-
-
-    function input_set() { input_setEvents(...arguments) }
-
-    function input_setEvents(input) { input?.addEventListener('change', input_eChange.bind(input.dataset.filter)) }
+    function dropdown_setEvents()
+    {
+        EVENTS.events_add(DROPDOWN_EVENTS            )
+        EVENTS.events_add(DROPDOWN_EVENTS_2, DROPDOWN)
+    }
 
 
     function option_set(option)
     {
-        const CONTROL = option.control
-
         option_setEvents(option)
         option_updateTabIndex(option)
 
-        if (CONTROL?.checked) PHOTOGRAPH_FILTER_STORE.set(CONTROL.dataset.filter)
+        if (option.ariaSelected === 'true') option_updateSelected(option)
     }
 
-    function option_setEvents(option) { option?.addEventListener('keydown', option_eKeydown.bind(option)) }
+    function option_setEvents(option)
+    {
+        option?.addEventListener('click'  , option_eClick  .bind(option))
+        option?.addEventListener('keydown', option_eKeydown.bind(option))
+    }
 
     // --GET
-    function dropdown_getState() { return !STATE.checked } // retourne l'état de dropdown (true = ouvert / false = fermé)
+    function dropdown_getState() { return DROPDOWN.ariaPressed === 'true' } // retourne l'état de dropdown (true = ouvert / false = fermé)
 
     function dropdown_getFocusableTarget(up = false, depth = 3) // retourne la cible suivante en fonction de la direction (haut ou bas)
     {
@@ -140,14 +133,37 @@
 
         const TARGET = dropdown_FOCUSABLE[dropdown_FOCUSABLE_INDEX]
     
-        return (TARGET?.control?.checked ?? true) ? dropdown_getFocusableTarget(up, --depth) : TARGET
+        return (TARGET === option_SELECTED) ? dropdown_getFocusableTarget(up, --depth) : TARGET
     }
 
     // --UPDATES
-    function state_update() { STATE.checked = !STATE.checked } // change l'état de l'input responsable de l'ouverture / fermeture
+    function dropdown_update(pressed) // change l'état de l'input responsable de l'ouverture / fermeture
+    {
+        const PRESSED = pressed ?? !dropdown_getState()
+    
+        DROPDOWN.ariaPressed = DROPDOWN.ariaExpanded = PRESSED
+
+        dropdown_FOCUSABLE_INDEX = 0
+
+        option_updateAllTabIndex()
+    }
 
 
-    function option_updateTabIndex(option) { option.tabIndex = !dropdown_getState() || option.control?.checked ? -1 : 0 } // modifie l'attribut tabindex sur l'option
+    function options_updateActiveDescendant(id) { if (id) OPTIONS.setAttribute('aria-activedescendant', id) }
+
+
+    function option_updateSelected(option)
+    {
+        if (option_SELECTED) option_SELECTED.ariaSelected = false
+
+        option.ariaSelected = true
+
+        option_SELECTED = option
+
+        PHOTOGRAPH_FILTER_STORE.set(option.dataset.filter)
+    }
+
+    function option_updateTabIndex(option) { option.tabIndex = !dropdown_getState() || option === option_SELECTED ? -1 : 0 } // modifie l'attribut tabindex sur l'option
 
     function option_updateAllTabIndex() { for (const OPTION of OPTION_OPTIONS) option_updateTabIndex(OPTION) } // modifie l'attribut tabindex sur chaque option
 
@@ -159,63 +175,52 @@
     // --*
     async function dropdown_e$Click({target}) // ferme dropdown si un click se fait sur un élément extérieur
     {
-        while (dropdown_getState())
+        if (!dropdown_getState()) return
+    
+        while (true)
         {
-            if (target === document.body || target === document.documentElement || target === document) return state_update()
-            if (target === CONTROLLER    || target === DROPDOWN                                       ) break
+            if (target === document.body || target === document.documentElement || target === document) return dropdown_update(false)
+            if (target === DROPDOWN                                                                   ) break
 
             target = target.parentNode
         }
     }
 
-    function dropdown_e$Keydown(e) // capte toutes les pressions du clavier, si dropdown est ouvert alors on vérouille le focus sur le controller et les options
+    function dropdown_eClick() { dropdown_update() }
+
+    function dropdown_eKeydown(e) // capte toutes les pressions du clavier, si dropdown est ouvert alors on vérouille le focus sur le controller et les options
     {
-        const KEY = e.key
+        const SHOW = dropdown_getState()
 
         let up = false
 
-        if (dropdown_getState() && (KEY === 'Tab' || (up = KEY === 'ArrowUp') || KEY === 'ArrowDown'))
+        switch (e.key)
+        {
+            case    'ArrowUp'  : up = true
+            case    'ArrowDown':
+            case    'Tab'      : return SHOW ? (e.preventDefault(), dropdown_getFocusableTarget(up)?.focus()) : void 0
+            default            : break
+        }
+    }
+
+
+    function option_eClick(e) // capte le changement de filtre
+    {
+        e.preventDefault()
+        e.stopPropagation()
+
+        options_updateActiveDescendant(this.id)
+        option_updateSelected(this)
+    }
+
+    function option_eKeydown(e) // change l'état d'une option (ceci entrainera l'appel à option_eClick)
+    {
+        if (e.key === 'Enter' || e.key === ' ')
         {
             e.preventDefault()
-
-            dropdown_getFocusableTarget(up)?.focus()
-        }
-    }
-
-
-    function controller_eKeydown({key}) // change l'état de dropdown lors d'une action 'Entrée' sur le controller
-    {
-        if (key === 'Enter' && STATE instanceof HTMLInputElement)
-        {
-            dropdown_FOCUSABLE_INDEX = 0
-
-            state_update()
-            option_updateAllTabIndex()
-        }
-    }
-
-
-    function input_eChange() // capte le changement de filtre
-    {
-        switch (this)
-        {
-            case    'likes':
-            case    'date' :
-            case    'title': return PHOTOGRAPH_FILTER_STORE.set(this)
-            default        : return
-        }
-    }
-
+            e.stopPropagation()
     
-    function option_eKeydown(e) // change l'état d'une option (ceci entrainera l'appel à input_eChange)
-    {
-        const CONTROL = this.control
-
-        if (e.key === 'Enter' && CONTROL instanceof HTMLInputElement)
-        {
-            CONTROL.checked = !CONTROL.checked
-
-            EVENTS.events_dispatch(CONTROL, 'change')
+            EVENTS.events_dispatch(this, 'click')
 
             option_updateAllTabIndex()
 
@@ -227,7 +232,4 @@
 //=======@UTILS|
 
     // --*
-    function input_iter() { for (const INPUT of INPUT_INPUTS) input_set(INPUT) }
-
-    
     function option_iter() { for (const OPTION of OPTION_OPTIONS) option_set(OPTION) }

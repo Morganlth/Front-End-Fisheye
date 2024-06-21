@@ -1,15 +1,33 @@
 body, h1, h2, p { margin: 0; }
 
-html { overflow-x: hidden; }
+/* html { overflow-x: hidden; } */
 
 body
 {
     width: 100vw;
 
+    padding-inline: 100px;
+
+    box-sizing: border-box;
+
     font-family: "DM Sans", sans-serif;
 }
 
-#main { padding-inline: 100px; }
+body>header
+{
+    display        : flex;
+    flex-direction : row;
+    justify-content: space-between;
+    align-items    : center;
+
+    height: 90px;
+}
+
+body>header h1 { color: #901C1C; }
+
+.logo { height: 50px; }
+
+.logo>img { height: 100%; }
 
 .portrait
 {
@@ -26,28 +44,4 @@ body
 {
     color      : #901C1C;
     font-weight: inherit;
-}
-
-header
-{
-    display        : flex;
-    flex-direction : row;
-    justify-content: space-between;
-    align-items    : center;
-
-    height: 90px;
-}
-
-header h1
-{
-    margin-right: 100px;
-
-    color: #901C1C;
-}
-
-.logo
-{
-    height: 50px;
-
-    margin-left: 100px;
 }

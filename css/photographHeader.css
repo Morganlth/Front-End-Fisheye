@@ -18,3 +18,18 @@
     font-size  : 64px;
     font-weight: 400;
 }
+
+.photograph-header .locality
+{
+    display: block;
+
+    margin-bottom: .8rem;
+
+    font-size: 24px;
+}
+
+.photograph-header .tagline
+{
+    color    : #525252;
+    font-size: 18px;
+}

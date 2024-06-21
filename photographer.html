@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
-<html>
+<html
+lang="fr"
+>
 	<head>
 		<link
 		href="css/style.css"
@@ -16,6 +18,11 @@
 	
 		<meta
 		charset="utf-8"
+		>
+
+		<meta
+		name="viewport"
+		content="width=device-width, initial-scale=1.0"
 		>
 	
 		<link
@@ -37,11 +44,11 @@
 			<a
 			class="logo"
 			href="/"
-			aria-label="accueil"
+			aria-label="Fisheye Home page"
 			>
 				<img
 				src="assets/images/logo.png"
-				alt="fisheye logo"
+				alt="Fisheye Home page"
 				/>
 			</a>
 		</header>
@@ -54,6 +61,7 @@
 			>
 				<button
 				class="contact_button open_modal"
+				aria-label="Contact Me"
 				>
 					Contactez-moi
 				</button>
@@ -62,96 +70,67 @@
 			<div
 			class="photograph-filter"
 			>
-				<label>Trier par</label>
-
-				<div
-				class="dropdown"
+				<span
+				id="filter-label"
 				>
-					<label
-					id="controller"
-					for="state"
-					role="combobox"
-					aria-label="select button"
-					aria-haspopup="listbox"
-					aria-expanded="false"
-					aria-controls="options"
-					tabindex="0"
-					></label>
+					Trier par
+				</span>
 
-					<input
-					id="state"
-					type="checkbox"
-					checked
-					aria-hidden="true"
-					hidden
-					>
-
+				<button
+				id="dropdown"
+				for="state"
+				aria-label="select button"
+				aria-haspopup="listbox"
+				aria-expanded="false"
+				aria-pressed="false"
+				>
 					<div
 					id="options"
 					role="listbox"
+					aria-labelledby="filter-label"
+					aria-activedescendant="option-1"
 					>
-						<input
+						<div
 						id="option-1"
-						type="radio"
-						name="filter"
-						aria-hidden="true"
-						data-filter="likes"
-						hidden
-						checked
-						>
-
-						<label
-						for="option-1"
 						class="option"
 						role="option"
-						tabindex="0"
+						aria-selected="true"
+						tabindex="-1"
+						data-filter="likes"
 						>
 							<span>Popularité</span>
-						</label>
-
-						<input
+						</div>
+	
+						<div
 						id="option-2"
-						type="radio"
-						name="filter"
-						aria-hidden="true"
-						data-filter="date"
-						hidden
-						/>
-
-						<label
-						for="option-2"
 						class="option"
 						role="option"
-						tabindex="0"
+						aria-selected="false"
+						tabindex="-1"
+						data-filter="date"
 						>
 							<span>Date</span>
-						</label>
+						</div>
 
-						<input
+						<div
 						id="option-3"
-						type="radio"
-						name="filter"
-						aria-hidden="true"
-						data-filter="title"
-						hidden
-						/>
-
-						<label
-						for="option-3"
 						class="option"
 						role="option"
-						tabindex="0"
+						aria-selected="false"
+						tabindex="-1"
+						data-filter="title"
 						>
 							<span>Titre</span>
-						</label>
+						</div>
 
 						<div
 						class="arrow"
+						aria-hidden="true"
 						>
 							<div></div>
 						</div>
 					</div>
-				</div>
+				</button>
 			</div>
 
 			<div
@@ -166,6 +145,8 @@
 		<div
 		id="lightbox"
 		class="hidden"
+		role="dialog"
+		aria-label="image closeup view"
 		>
 			<div
 			class="media"
@@ -177,6 +158,7 @@
 
 			<button
 			class="close"
+			aria-label="Close dialog"
 			>
 				<svg
 				viewBox="0 0 42 42"
@@ -192,6 +174,7 @@
 	
 			<button
 			class="arrow left"
+			aria-label="Previous image"
 			>
 				<svg
 				viewBox="0 0 30 48"
@@ -207,6 +190,7 @@
 
 			<button
 			class="arrow right"
+			aria-label="Next image"
 			>
 				<svg
 				viewBox="0 0 30 48"
@@ -222,48 +206,78 @@
 		</div>
 	
 		<div
-		id="contact_modal"
+		id="contact-modal"
 		class="hidden"
+		role="dialog"
+		aria-labelledby="contact-title"
 		>
 			<div
 			class="modal"
 			>
 				<header>
-					<h2>Contactez-moi</h2>
+					<h1
+					id="contact-title"
+					>
+						Contactez-moi
+					</h1>
 	
-					<img
+					<button
 					class="close"
-					src="assets/icons/close.svg"
-					/>
+					aria-label="Close Contact form"
+					>
+						<img
+						src="assets/icons/close.svg"
+						alt="Cross icon"
+						/>
+					</button>
 				</header>
 	
 				<form>
 					<label>
 						Prénom
 	
-						<input />
+						<input
+						name="firstname"
+						type="text"
+						autocomplete="given-name"
+						required
+						/>
 					</label>
 
 					<label>
 						Nom
 	
-						<input />
+						<input
+						name="lastname"
+						type="text"
+						autocomplete="family-name"
+						required
+						/>
 					</label>
 
 					<label>
 						Email
 	
-						<input />
+						<input
+						name="email"
+						type="email"
+						autocomplete="email"
+						required
+						/>
 					</label>
 
 					<label>
 						Votre message
 	
-						<textarea></textarea>
+						<textarea
+						name="message"
+						required
+						></textarea>
 					</label>
 	
 					<button
 					class="contact_button"
+					aria-label="Send"
 					>
 						Envoyer
 					</button>

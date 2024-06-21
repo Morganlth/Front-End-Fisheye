@@ -67,7 +67,7 @@ class Photographer
             <img
             class="portrait"
             src="${this.photographer_PICTURE}"
-            alt="${this.photographer_NAME}"
+            alt="Portrait de ${this.photographer_NAME ?? ''}"
             >
         `
     }

@@ -49,7 +49,7 @@
         photographGallery_init(GALLERY, page_PHOTOGRAPHER.photographer_MEDIA)
         photographInfos_init(INFOS)
         lightbox_init()
-        modal_init()
+        modal_init(page_PHOTOGRAPHER.photographer_NAME)
     }
 
 
@@ -62,7 +62,7 @@
     {
         photographGalleryClick      : body_e$PhotographGalleryClick,
         photographGalleryLikesUpdate: body_e$PhotographGalleryLikesUpdate,
-        lightboxArrowClick          : body_e$LightboxArrowClick
+        lightboxUpdateContent       : body_e$lightboxUpdateContent
     }
 
 
@@ -119,7 +119,7 @@
         photographInfos_update(page_PHOTOGRAPHER.photographer_getTotalLikes())
     }
 
-    function body_e$LightboxArrowClick({detail: {currentId, right}})
+    function body_e$lightboxUpdateContent({detail: {currentId, right}})
     {
         const MEDIA = page_PHOTOGRAPHER.photographer_MEDIA
 

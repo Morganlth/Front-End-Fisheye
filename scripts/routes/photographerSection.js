@@ -14,8 +14,8 @@
     // --LIB
 
     // --JS
-    import { data_get }         from '../utils/data.js'
-    import PhotographerOverview from '../templates/photographerOverview.js'
+    import { data_get }     from '../utils/data.js'
+    import PhotographerCard from '../templates/photographerCard.js'
 
     // --SCSS
 
@@ -46,7 +46,7 @@
     // --SET
     function photographerSection_set() { photographerSection_setHTML(...arguments) }
 
-    function photographerSection_setHTML(photographer) { PHOTOGRAPHER_SECTION.insertAdjacentHTML('beforeend', new PhotographerOverview(photographer).photographer_getUserCard()) }
+    function photographerSection_setHTML(photographer) { PHOTOGRAPHER_SECTION.insertAdjacentHTML('beforeend', new PhotographerCard(photographer).photographer_getUserCard()) }
 
     // --GET
 

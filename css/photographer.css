@@ -5,8 +5,6 @@
 @import url('./lightbox.css');
 @import url('./modal.css');
 
-.logo>img { height: 100%; }
-
 .contact_button
 {
     min-width: 170px;

@@ -14,6 +14,7 @@
     // --LIB
 
     // --JS
+    import EVENTS from '../../contexts/Events.js'
 
     // --SCSS
 
@@ -25,7 +26,7 @@
 // #\-EXPORTS-\
 
     // --THIS
-    export default function modal_init() { modal_set() }
+    export default function modal_init() { modal_set(...arguments) }
 
 
 // #\-CONSTANTES-\
@@ -34,15 +35,26 @@
     const OPEN = document.querySelector('.open_modal')
 
     // --THIS
-    const MODAL = document.getElementById('contact_modal')
+    const
+    MODAL = document.getElementById('contact-modal')
+    ,
+    MODAL_EVENTS = { keydown: modal_e$Keydown }
     
     // --INSIDE
-    const CLOSE = MODAL.querySelector('.close')
+    const TITLE = MODAL?.querySelector('#contact-title')
+
+    const CLOSE = MODAL?.querySelector('.close')
 
 
 // #\-VARIABLES-\
 
     // --THIS
+    let
+    modal_EVENTS_OK = false
+    ,
+    modal_FOCUSABLE = [CLOSE, ...MODAL.querySelectorAll('input, textarea, button:not(.close)')]
+    ,
+    modal_FOCUSABLE_INDEX = 0
 
 
 // #\-FUNCTIONS-\
@@ -51,7 +63,17 @@
     function modal_set()
     {
         open_set()
+        title_set(...arguments)
         close_set()
+    }
+
+    function modal_setEvents()
+    {
+        if (modal_EVENTS_OK) return
+
+        EVENTS.events_add(MODAL_EVENTS)
+
+        modal_EVENTS_OK = true
     }
 
 
@@ -60,28 +82,62 @@
     function open_setEvents() { OPEN?.addEventListener('click', open_eClick) }
 
 
+    function title_set() { title_setElement(...arguments) }
+
+    function title_setElement(name = '') { TITLE.textContent += ' ' + name }
+
+
     function close_set() { close_setEvents() }
 
     function close_setEvents() { CLOSE?.addEventListener('click', close_eClick) }
 
     // --GET
+    function modal_getFocusableTarget() // retourne la cible suivante
+    {
+        if (++modal_FOCUSABLE_INDEX >= modal_FOCUSABLE.length) modal_FOCUSABLE_INDEX = 0
+
+        return modal_FOCUSABLE[modal_FOCUSABLE_INDEX]
+    }
 
     // --UPDATES
     function modal_update(hidden = true)
     {
-        let action = ''
+        let
+        action = '',
+        modal_updateEvents
 
-        ;[document.documentElement.style.overflowY, action] = hidden ? ['auto', 'add'] : ['hidden', 'remove']
+        ;[document.documentElement.style.overflowY, action, modal_updateEvents] = hidden ? ['auto', 'add', modal_destroyEvents] : ['hidden', 'remove', modal_setEvents]
 
         MODAL.classList[action]('hidden')
+
+        modal_updateEvents()
     }
 
     // --TESTS
+
+    // --DESTROY
+    function modal_destroyEvents()
+    {
+        EVENTS.events_remove(MODAL_EVENTS)
+
+        modal_EVENTS_OK = false
+    }
 
 
 //=======@EVENTS|
 
     // --*
+    function modal_e$Keydown(e)
+    {
+        if (e.key === 'Tab')
+        {
+            e.preventDefault()
+
+            modal_getFocusableTarget()?.focus()
+        }
+    }
+
+
     function open_eClick() { modal_update(false) }
 
 

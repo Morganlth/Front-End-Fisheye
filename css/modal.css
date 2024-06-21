@@ -1,10 +1,7 @@
-#contact_modal, #contact_modal :is(.modal, form) { display: flex; }
 
-#contact_modal, #contact_modal .modal { align-items: center; }
+#contact-modal, #contact-modal :is(header, form, label, input, textarea) { width: 100%; }
 
-#contact_modal, #contact_modal :is(header, form, label, input, textarea) { width: 100%; }
-
-#contact_modal
+#contact-modal
 {
     justify-content: center;
 
@@ -13,62 +10,72 @@
     left    : 0;
     z-index : 3;
 
-    overflow: hidden;
+    overflow: hidden auto;
 
     height: 100vh;
     height: 100lvh;
 
+    padding-block: 90px;
+
+    box-sizing: border-box;
+
     background-color: rgba(255, 255, 255, .4);
 }
 
-#contact_modal.hidden
+#contact-modal.hidden
 {
-    opacity: 0;
+    visibility: hidden;
 
     pointer-events: none;
 }
 
-#contact_modal :is(.modal, header) { justify-content: space-between; }
+#contact-modal :is(.modal, header, form) { display: flex; }
 
-#contact_modal :is(.modal, form) { flex-direction: column; }
+#contact-modal :is(.modal, header) { justify-content: space-between; }
 
-#contact_modal :is(.modal, input, textarea) { border-radius: 5px; }
+#contact-modal :is(.modal, form) { flex-direction: column; }
 
-#contact_modal .modal
+#contact-modal :is(.modal, input, textarea) { border-radius: 5px; }
+
+#contact-modal .modal
 {
+    align-items: center;
+
     width: 669px;
 
-    padding: 35px;
+    margin-inline: auto;
+    padding      : 35px;
 
     background-color: #DB8876;
 }
 
-#contact_modal header img { cursor: pointer; }
+#contact-modal :is(header, form) { align-items: flex-start; }
 
-#contact_modal :is(h2, textarea) { margin-bottom: 1.4rem; }
+#contact-modal header img { cursor: pointer; }
 
-#contact_modal h2
+#contact-title, #contact-modal textarea { margin-bottom: 1.4rem; }
+
+#contact-title
 {
     font-size  : 64px;
-    font-weight: normal;
-    text-align : center;
+    font-weight: 400;
 }
 
-#contact_modal form
-{
-    align-items: flex-start;
+#contact-modal :is(.close, input, textarea) { border: none; }
 
+#contact-modal .close { background: none; }
+
+#contact-modal form
+{
     color    : #312E2E;
     font-size: 36px;
 }
 
-#contact_modal :is(input, textarea) { border: none; }
-
-#contact_modal form input
+#contact-modal form input
 {
     height: 68px;
 
     margin-bottom: .4rem;
 }
 
-#contact_modal form textarea { min-height: 170px; }
+#contact-modal form textarea { min-height: 170px; }

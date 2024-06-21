@@ -6,7 +6,7 @@
     // --ENV
 
     // --DATA
-
+    
     // --NODE
 
     // --SVELTE
@@ -27,7 +27,20 @@
     // --THIS
     export default function photographGallery_init() { photographGallery_set(...arguments) }
 
-    export function photographGallery_update() { for (let i = 0; i < photographGallery_MEDIA.length; i++) photographGallery_MEDIA[i].element.style.order = i }
+    export function photographGallery_update()
+    {
+        for (let i = 0; i < photographGallery_MEDIA.length; i++)
+        {
+            const
+            ELEMENT = photographGallery_MEDIA[i].element,
+            INDEX   = i + 1
+
+            ELEMENT.style.order = i
+
+            if (ELEMENT.button) ELEMENT.button.tabIndex = INDEX
+            if (ELEMENT.likes ) ELEMENT.likes .tabIndex = INDEX
+        }
+    }
 
 
 // #\-CONSTANTES-\
@@ -57,16 +70,27 @@
     function photographGallery_setVars(media = []) { photographGallery_MEDIA = media }
 
 
-    function media_set() { media_setEvents(...arguments) }
+    function media_set(target, order, id, text)
+    {
+        media_setElement(target, order)
+        media_setEvents(target, id, text)
+    }
+
+    function media_setElement(target, order = 0)
+    {
+        const
+        BUTTON = target.querySelector('.button'),
+        LIKES  = target.querySelector('.likes')
+
+        target.style.order = order
+        target.button      = BUTTON
+        target.likes       = LIKES
+    }
 
     function media_setEvents(target, id, text = '')
     {
-        const
-        BUTTON = target?.querySelector('.button'),
-        LIKES  = target?.querySelector('.likes')
-        
-        BUTTON?.addEventListener('click', media_eClick.bind(BUTTON, id, text))
-        LIKES ?.addEventListener('click', likes_eClick.bind(LIKES , id      ))
+        target.button?.addEventListener('click', media_eClick.bind(target.button, id, text))
+        target.likes ?.addEventListener('click', likes_eClick.bind(target.likes , id      ))
     }
 
     // --GET
@@ -120,9 +144,7 @@
 
             if (!MEDIA) continue
 
-            TARGET.style.order = i
-
-            media_set(TARGET, ID, MEDIA.title)
+            media_set(TARGET, i, ID, MEDIA.title)
 
             MEDIA.element = TARGET
         }

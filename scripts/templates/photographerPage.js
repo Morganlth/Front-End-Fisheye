@@ -114,6 +114,7 @@ class PhotographerPage extends Photographer
                 >
                     <button
                     class="button"
+                    aria-label="View '${title}'"
                     >
                         ${
                             image ?
@@ -126,8 +127,9 @@ class PhotographerPage extends Photographer
                             : video ?
                             `
                                 <video
-                                controls="controls"
                                 preload="metadata"
+                                loop="true"
+                                muted="true"
                                 >
                                     <source
                                     src="assets/images/media/${video}#t=0.1"
@@ -148,6 +150,7 @@ class PhotographerPage extends Photographer
 
                         <button
                         class="likes"
+                        aria-label="likes"
                         data-liked="false"
                         data-likes="${likes}"
                         >
