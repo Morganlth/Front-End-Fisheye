@@ -1,0 +1,74 @@
+#contact_modal, #contact_modal :is(.modal, form) { display: flex; }
+
+#contact_modal, #contact_modal .modal { align-items: center; }
+
+#contact_modal, #contact_modal :is(header, form, label, input, textarea) { width: 100%; }
+
+#contact_modal
+{
+    justify-content: center;
+
+    position: fixed;
+    top     : 0;
+    left    : 0;
+    z-index : 3;
+
+    overflow: hidden;
+
+    height: 100vh;
+    height: 100lvh;
+
+    background-color: rgba(255, 255, 255, .4);
+}
+
+#contact_modal.hidden
+{
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+#contact_modal :is(.modal, header) { justify-content: space-between; }
+
+#contact_modal :is(.modal, form) { flex-direction: column; }
+
+#contact_modal :is(.modal, input, textarea) { border-radius: 5px; }
+
+#contact_modal .modal
+{
+    width: 669px;
+
+    padding: 35px;
+
+    background-color: #DB8876;
+}
+
+#contact_modal header img { cursor: pointer; }
+
+#contact_modal :is(h2, textarea) { margin-bottom: 1.4rem; }
+
+#contact_modal h2
+{
+    font-size  : 64px;
+    font-weight: normal;
+    text-align : center;
+}
+
+#contact_modal form
+{
+    align-items: flex-start;
+
+    color    : #312E2E;
+    font-size: 36px;
+}
+
+#contact_modal :is(input, textarea) { border: none; }
+
+#contact_modal form input
+{
+    height: 68px;
+
+    margin-bottom: .4rem;
+}
+
+#contact_modal form textarea { min-height: 170px; }

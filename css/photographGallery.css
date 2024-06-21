@@ -1,0 +1,80 @@
+.photograph-gallery, .photograph-gallery :is(.container, .button, .button>*, .container>p) { width: 100%; }
+
+.photograph-gallery, .photograph-gallery :is(.button) { overflow: hidden; }
+
+.photograph-gallery
+{
+    display              : grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap                  : 20px 95px;
+
+    margin-block: 90px;
+}
+
+.photograph-gallery button
+{
+    padding: 0;
+
+    border: none;
+
+    cursor: pointer;
+}
+
+.photograph-gallery .media
+{
+    position: relative;
+
+    padding-top: 100%;
+}
+
+.photograph-gallery :is(.container, .container>p) { display: flex; }
+
+.photograph-gallery :is(.container, .button>*) { height: 100%; }
+
+.photograph-gallery .container
+{
+    flex-direction: column;
+
+    position: absolute;
+    top     : 0;
+    left    : 0;
+}
+
+.photograph-gallery .button
+{
+    flex: 1;
+
+    background-color: #C4C4C4;
+}
+
+.photograph-gallery .button>*
+{
+    object-position: center;
+    object-fit     : cover;
+}
+
+.photograph-gallery .container>p
+{
+    color      : #901C1C;
+    font-size  : 24px;
+    font-weight: 400;
+}
+
+.photograph-gallery .container>p
+{
+    justify-content: space-between;
+
+    padding-block: 1.4rem;
+}
+
+.photograph-gallery .likes
+{
+    background: none;
+
+    color: inherit;
+    font : inherit;
+}
+
+.photograph-gallery .likes::before { content: attr(data-likes); }
+
+.photograph-gallery .likes[data-liked="true"]::before { font-weight: bold; }

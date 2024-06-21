@@ -1,0 +1,39 @@
+.photograph-infos, .photograph-infos :is(.infos, .likes) { display: flex; }
+
+.photograph-infos, .photograph-infos .infos { box-sizing: border-box; }
+
+.photograph-infos
+{
+    justify-content: flex-end;
+
+    position: fixed;
+    bottom  : 0;
+    left    : 0;
+
+    width: 100vw;
+
+    padding-right: 42px;
+}
+
+.photograph-infos :is(.infos, .likes) { align-items: center; }
+
+.photograph-infos .infos
+{
+    justify-content: space-between;
+
+    min-width: 376px;
+    height   : 62px;
+
+    padding-inline: 2.4rem;
+
+    background-color: #DB8876;
+
+    border-top-right-radius: 5px;
+    border-top-left-radius : 5px;
+
+    color      : #000000;
+    font-size  : 24px;
+    font-weight: 500;
+}
+
+.photograph-infos .likes::before { content: attr(data-likes); }

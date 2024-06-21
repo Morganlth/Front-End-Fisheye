@@ -1,0 +1,20 @@
+
+.photograph-header
+{
+    display        : flex;
+    justify-content: space-around;
+    align-items    : center;
+
+    height: 300px;
+
+    margin-bottom: 1.8rem;
+
+    background-color: #FAFAFA;
+}
+
+.photograph-header h1
+{
+    color      : #D3573C;
+    font-size  : 64px;
+    font-weight: 400;
+}
