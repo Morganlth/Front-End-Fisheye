@@ -59,12 +59,9 @@
     const
     DROPDOWN = document.getElementById('dropdown')
     ,
-    DROPDOWN_EVENTS = { click: dropdown_e$Click },
-    DROPDOWN_EVENTS_2 =
-    {
-        click  : dropdown_eClick,
-        keydown: dropdown_eKeydown
-    }
+    DROPDOWN_EVENTS = { click: dropdown_e$Click }
+
+    const BUTTON = DROPDOWN?.querySelector('button')
 
     const OPTIONS = DROPDOWN?.querySelector('#options')
 
@@ -88,6 +85,7 @@
     function photographFilter_set()
     {
         dropdown_set()
+        button_set()
         option_iter()
     }
 
@@ -98,13 +96,19 @@
         dropdown_setEvents()
     }
 
-    function dropdown_setVars() { dropdown_FOCUSABLE = [DROPDOWN, ...OPTION_OPTIONS] }
+    function dropdown_setVars() { dropdown_FOCUSABLE = [BUTTON, ...OPTION_OPTIONS] }
 
     function dropdown_setEvents()
     {
-        EVENTS.events_add(DROPDOWN_EVENTS            )
-        EVENTS.events_add(DROPDOWN_EVENTS_2, DROPDOWN)
+        EVENTS.events_add(DROPDOWN_EVENTS)
+
+        DROPDOWN?.addEventListener('keydown', dropdown_eKeydown)
     }
+
+
+    function button_set() { button_setEvents() }
+
+    function button_setEvents() { BUTTON?.addEventListener('click', button_eClick) }
 
 
     function option_set(option)
@@ -122,8 +126,6 @@
     }
 
     // --GET
-    function dropdown_getState() { return DROPDOWN.ariaPressed === 'true' } // retourne l'état de dropdown (true = ouvert / false = fermé)
-
     function dropdown_getFocusableTarget(up = false, depth = 3) // retourne la cible suivante en fonction de la direction (haut ou bas)
     {
         if (depth < 0) return
@@ -136,17 +138,20 @@
         return (TARGET === option_SELECTED) ? dropdown_getFocusableTarget(up, --depth) : TARGET
     }
 
+
+    function button_getState() { return BUTTON.ariaPressed === 'true' } // retourne l'état du button (true = ouvert / false = fermé)
+
     // --UPDATES
     function dropdown_update(pressed) // change l'état de l'input responsable de l'ouverture / fermeture
     {
-        const PRESSED = pressed ?? !dropdown_getState()
-    
-        DROPDOWN.ariaPressed = DROPDOWN.ariaExpanded = PRESSED
-
         dropdown_FOCUSABLE_INDEX = 0
 
+        button_update(pressed)
         option_updateAllTabIndex()
     }
+
+
+    function button_update(pressed) { BUTTON.ariaPressed = BUTTON.ariaExpanded = pressed ?? !button_getState() }
 
 
     function options_updateActiveDescendant(id) { if (id) OPTIONS.setAttribute('aria-activedescendant', id) }
@@ -163,7 +168,7 @@
         PHOTOGRAPH_FILTER_STORE.set(option.dataset.filter)
     }
 
-    function option_updateTabIndex(option) { option.tabIndex = !dropdown_getState() || option === option_SELECTED ? -1 : 0 } // modifie l'attribut tabindex sur l'option
+    function option_updateTabIndex(option) { option.tabIndex = !button_getState() || option === option_SELECTED ? -1 : 0 } // modifie l'attribut tabindex sur l'option
 
     function option_updateAllTabIndex() { for (const OPTION of OPTION_OPTIONS) option_updateTabIndex(OPTION) } // modifie l'attribut tabindex sur chaque option
 
@@ -175,7 +180,7 @@
     // --*
     async function dropdown_e$Click({target}) // ferme dropdown si un click se fait sur un élément extérieur
     {
-        if (!dropdown_getState()) return
+        if (!button_getState()) return
     
         while (true)
         {
@@ -186,11 +191,9 @@
         }
     }
 
-    function dropdown_eClick() { dropdown_update() }
-
     function dropdown_eKeydown(e) // capte toutes les pressions du clavier, si dropdown est ouvert alors on vérouille le focus sur le controller et les options
     {
-        const SHOW = dropdown_getState()
+        const PRESSED = button_getState()
 
         let up = false
 
@@ -198,10 +201,13 @@
         {
             case    'ArrowUp'  : up = true
             case    'ArrowDown':
-            case    'Tab'      : return SHOW ? (e.preventDefault(), dropdown_getFocusableTarget(up)?.focus()) : void 0
+            case    'Tab'      : return PRESSED ? (e.preventDefault(), dropdown_getFocusableTarget(up)?.focus()) : void 0
             default            : break
         }
     }
+
+
+    function button_eClick() { dropdown_update() }
 
 
     function option_eClick(e) // capte le changement de filtre

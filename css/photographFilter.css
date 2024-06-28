@@ -8,36 +8,50 @@
     font-weight: 700;
 }
 
-#dropdown, #options { border-radius: 5px; }
+#dropdown, #dropdown>button, #options { border-radius: 5px; }
 
-#dropdown, #options .option { cursor: pointer; }
-
-#dropdown, #options .option:focus { z-index: 1; }
+#dropdown, #dropdown>button, #options .option:focus { z-index: 1; }
 
 #dropdown
 {
+    position: relative;
+
     height    : 70px;
     max-height: 70px;
+
+    font: inherit;
+}
+
+#dropdown>button, #options .option { cursor: pointer; }
+
+#dropdown>button, #options .option>span
+{
+    width : 100%;
+    height: 100%;
+}
+
+#dropdown>button
+{
+    position: absolute;
+    top     : 0;
+    left    : 0;
 
     padding: 0;
 
     background: none;
 
     border: none;
-
-    font: inherit;
 }
 
-#dropdown:focus-visible { outline: solid 2px; }
+#dropdown>button:focus-visible { outline: solid 2px; }
 
+#dropdown>button[aria-pressed="false"] + #options .option[aria-selected="true"] { border-bottom-left-radius: 5px; }
 
-#dropdown[aria-pressed="false"] .option[aria-selected="true"] { border-bottom-left-radius: 5px; }
+#dropdown>button[aria-pressed="false"] + #options .arrow { border-bottom-right-radius: 5px; }
 
-#dropdown[aria-pressed="false"] .arrow { border-bottom-right-radius: 5px; }
+#dropdown>button[aria-pressed="false"] + #options .arrow div { transform: scaleY(1); }
 
-#dropdown[aria-pressed="false"] .arrow div { transform: scaleY(1); }
-
-#dropdown[aria-pressed="false"] .option[aria-selected="false"] { transform: scaleY(0); }
+#dropdown>button[aria-pressed="false"] + #options .option[aria-selected="false"] { transform: scaleY(0); }
 
 #options, #options .option>span, #options .arrow div::before { box-sizing: border-box; }
 
@@ -82,13 +96,7 @@
 
 #options :is(.option>span, .arrow) { align-items: center; }
 
-#options .option>span
-{
-    width : 100%;
-    height: 100%;
-
-    border-top: solid 1px #FFFFFF;
-}
+#options .option>span { border-top: solid 1px #FFFFFF; }
 
 #options .arrow
 {
