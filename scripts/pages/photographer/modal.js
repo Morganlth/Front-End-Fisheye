@@ -65,7 +65,7 @@
 
     function title_set() { title_setElement(...arguments) }
 
-    function title_setElement(name = '') { TITLE.textContent += ' ' + name }
+    function title_setElement(name = '') { TITLE.textContent += ' ' + name } // set title TextContent
 
 
     function close_set() { close_setEvents() }
@@ -73,7 +73,7 @@
     function close_setEvents() { CLOSE?.addEventListener('click', close_eClick) }
 
     // --GET
-    function modal_getFocusableTarget() // retourne la cible suivante
+    function modal_getFocusableTarget() // returns the following target
     {
         if (++modal_FOCUSABLE_INDEX >= modal_FOCUSABLE.length) modal_FOCUSABLE_INDEX = 0
 
@@ -81,7 +81,7 @@
     }
 
     // --UPDATES
-    function modal_update(hidden = true)
+    function modal_update(hidden = true) // open / close the modal
     {
         let
         action = '',
@@ -106,7 +106,7 @@
 //=======@EVENTS|
 
     // --*
-    function modal_e$Keydown(e)
+    function modal_e$Keydown(e) // switches focus to next element
     {
         if (e.key === 'Tab')
         {

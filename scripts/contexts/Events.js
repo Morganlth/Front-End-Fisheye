@@ -1,3 +1,8 @@
+/*
+    events management
+*/
+
+
 /*-- #|-CLASS-| --*/
 
 class Events

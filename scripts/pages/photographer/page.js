@@ -1,3 +1,8 @@
+/*
+    JS associated with the "photographer.html" page
+*/
+
+
 // #\-IMPORTS-\
 
     // --JS
@@ -19,7 +24,7 @@
     {
   await page_set()
 
-        const
+        const // retrieves the photographer's HTML content in the form of a string to initialize the various sections of the page
         PROFIL   = page_PHOTOGRAPHER.photographer_getProfile ().trim(),
         PORTRAIT = page_PHOTOGRAPHER.photographer_getPortrait().trim(),
         GALLERY  = page_PHOTOGRAPHER.photographer_getGallery ().trim(),
@@ -37,7 +42,7 @@
 // #\-CONSTANTES-\
 
     // --INSIDE
-    const BODY_EVENTS =
+    const BODY_EVENTS = // custom events
     {
         photographGalleryClick      : body_e$PhotographGalleryClick,
         photographGalleryLikesUpdate: body_e$PhotographGalleryLikesUpdate,
@@ -63,7 +68,7 @@
         photographFilter_subscribeToStore(page_sortMedia)
     }
 
-    async function page_setVars()
+    async function page_setVars() // retrieves the photographer's id from the url, if it doesn't exist we redirect the user to the "index.html", otherwise we instantiate a new "PhotographerPage" with the id and data retrieved from the .json file
     {
         page_PHOTOGRAPHER_ID = parseInt(new URLSearchParams(location.search).get('id'), 10)
 
@@ -75,22 +80,22 @@
 
     function body_set() { body_setEvents() }
 
-    function body_setEvents() { EVENTS.events_add(BODY_EVENTS, document.body) }
+    function body_setEvents() { EVENTS.events_add(BODY_EVENTS, document.body) } // add event to body
 
 
 //=======@EVENTS|
 
     // --*
-    function body_e$PhotographGalleryClick({detail: {node, id, text}}) { lightbox_update(node, id, text) }
+    function body_e$PhotographGalleryClick({detail: {node, id, text}}) { lightbox_update(node, id, text) } // custom event issued by the gallery to update the lightbox
 
-    function body_e$PhotographGalleryLikesUpdate({detail: {id, likes}})
+    function body_e$PhotographGalleryLikesUpdate({detail: {id, likes}}) // custom event issued by the gallery (likes element, among others) to update a media's likes
     {
         page_PHOTOGRAPHER.photographer_updateMediaLikes(id, likes)
 
         photographInfos_update(page_PHOTOGRAPHER.photographer_getTotalLikes())
     }
 
-    function body_e$lightboxUpdateContent({detail: {currentId, right}})
+    function body_e$lightboxUpdateContent({detail: {currentId, right}}) // custom event emitted by the lighbox's content to update the media inside it
     {
         const MEDIA = page_PHOTOGRAPHER.photographer_MEDIA
 
@@ -110,7 +115,7 @@
 //=======@UTILS|
 
     // --*
-    function page_sortMedia(filter)
+    function page_sortMedia(filter) // sort media by filter
     {
         switch (filter)
         {

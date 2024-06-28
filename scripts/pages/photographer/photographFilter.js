@@ -9,7 +9,7 @@
     // --THIS
     export default function photographFilter_init() { photographFilter_set() }
 
-    export function photographFilter_subscribeToStore(callback) { PHOTOGRAPH_FILTER_STORE.subscribe(callback) }
+    export function photographFilter_subscribeToStore(callback) { PHOTOGRAPH_FILTER_STORE.subscribe(callback) } // to be notified of filter changes
 
 
 // #\-CONSTANTES-\
@@ -53,11 +53,11 @@
 
     // --INSIDE
     let
-    dropdown_FOCUSABLE
+    dropdown_FOCUSABLE // all focusable elements in "dropdown"
     ,
     dropdown_FOCUSABLE_INDEX = 0
 
-    let option_SELECTED
+    let option_SELECTED 
 
 
 // #\-FUNCTIONS-\
@@ -107,7 +107,7 @@
     }
 
     // --GET
-    function dropdown_getFocusableTarget(up = false, depth = 3) // retourne la cible suivante en fonction de la direction (haut ou bas)
+    function dropdown_getFocusableTarget(up = false, depth = 3) // returns the next target according to direction (up or down)
     {
         if (depth < 0) return
 
@@ -120,10 +120,10 @@
     }
 
 
-    function button_getState() { return BUTTON.ariaPressed === 'true' } // retourne l'état du button (true = ouvert / false = fermé)
+    function button_getState() { return BUTTON.ariaPressed === 'true' } // returns button status (true = open / false = closed)
 
     // --UPDATES
-    function dropdown_update(pressed) // change l'état de l'input responsable de l'ouverture / fermeture
+    function dropdown_update(pressed) // open or close "dropdown"
     {
         dropdown_FOCUSABLE_INDEX = 0
 
@@ -132,13 +132,13 @@
     }
 
 
-    function button_update(pressed) { BUTTON.ariaPressed = BUTTON.ariaExpanded = pressed ?? !button_getState() }
+    function button_update(pressed) { BUTTON.ariaPressed = BUTTON.ariaExpanded = pressed ?? !button_getState() } // changes "aria-pressed" and "aria-expanded" attributes
 
 
-    function options_updateActiveDescendant(id) { if (id) OPTIONS.setAttribute('aria-activedescendant', id) }
+    function options_updateActiveDescendant(id) { if (id) OPTIONS.setAttribute('aria-activedescendant', id) } // changes "aria-activedescendant" attribute
 
 
-    function option_updateSelected(option)
+    function option_updateSelected(option) // changes the selected option
     {
         if (option_SELECTED) option_SELECTED.ariaSelected = false
 
@@ -149,15 +149,15 @@
         PHOTOGRAPH_FILTER_STORE.set(option.dataset.filter)
     }
 
-    function option_updateTabIndex(option) { option.tabIndex = !button_getState() || option === option_SELECTED ? -1 : 0 } // modifie l'attribut tabindex sur l'option
+    function option_updateTabIndex(option) { option.tabIndex = !button_getState() || option === option_SELECTED ? -1 : 0 } // modifies the tabindex attribute on the option
 
-    function option_updateAllTabIndex() { for (const OPTION of OPTION_OPTIONS) option_updateTabIndex(OPTION) } // modifie l'attribut tabindex sur chaque option
+    function option_updateAllTabIndex() { for (const OPTION of OPTION_OPTIONS) option_updateTabIndex(OPTION) } // modifies tabindex attribute on each option
 
 
 //=======@EVENTS|
 
     // --*
-    async function dropdown_e$Click({target}) // ferme dropdown si un click se fait sur un élément extérieur
+    async function dropdown_e$Click({target}) // closes dropdown if a click is made on an external element
     {
         if (!button_getState()) return
     
@@ -170,7 +170,7 @@
         }
     }
 
-    function dropdown_eKeydown(e) // capte toutes les pressions du clavier, si dropdown est ouvert alors on vérouille le focus sur le controller et les options
+    function dropdown_eKeydown(e) // captures keyboard pressure on "dropdown" and locks focus on button and options
     {
         const PRESSED = button_getState()
 
@@ -189,7 +189,7 @@
     function button_eClick() { dropdown_update() }
 
 
-    function option_eClick(e) // capte le changement de filtre
+    function option_eClick(e) // filter change
     {
         e.preventDefault()
         e.stopPropagation()
@@ -198,7 +198,7 @@
         option_updateSelected(this)
     }
 
-    function option_eKeydown(e) // change l'état d'une option (ceci entrainera l'appel à option_eClick)
+    function option_eKeydown(e) // changes the state of an option (this will call option_eClick)
     {
         if (e.key === 'Enter' || e.key === ' ')
         {

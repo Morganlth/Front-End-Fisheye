@@ -1,3 +1,8 @@
+/*
+    JS associated with the "index.html" page
+*/
+
+
 // #\-IMPORTS-\
 
     // --JS

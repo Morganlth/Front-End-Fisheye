@@ -1,3 +1,8 @@
+/*
+    "PhotographerCard" adds a method for obtaining the HTML code of a photographer's card (see index.html)
+*/
+
+
 /*-- #|-CLASS-| --*/
 
 class PhotographerCard extends Photographer

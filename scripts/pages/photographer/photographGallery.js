@@ -3,7 +3,7 @@
     // --THIS
     export default function photographGallery_init() { photographGallery_set(...arguments) }
 
-    export function photographGallery_update()
+    export function photographGallery_update() // updates the order of each media in the gallery
     {
         for (let i = 0; i < photographGallery_MEDIA.length; i++)
         {
@@ -41,9 +41,9 @@
         media_iter()
     }
 
-    function photographGallery_setHTML(gallery = '') { PHOTOGRAPH_GALLERY?.insertAdjacentHTML('beforeend', gallery) }
+    function photographGallery_setHTML(gallery = '') { PHOTOGRAPH_GALLERY?.insertAdjacentHTML('beforeend', gallery) } // adds the photographer's media to the section
 
-    function photographGallery_setVars(media = []) { photographGallery_MEDIA = media }
+    function photographGallery_setVars(media = []) { photographGallery_MEDIA = media } // saves all media in a variable
 
 
     function media_set(target, order, id, text)
@@ -73,9 +73,9 @@
 //=======@EVENTS|
 
     // --*
-    function media_eClick(id, text = '', e)
+    function media_eClick(id, text = '', e) // generates a custom event asking the page to open the "lightbox" with the selected media
     {
-        e.preventDefault() // empêche les vidéos de se lancer
+        e.preventDefault() // prevents videos from starting
 
         const
         NODE  = this.firstElementChild.cloneNode(true),
@@ -85,7 +85,7 @@
     }
 
 
-    function likes_eClick(id)
+    function likes_eClick(id) // generates a custom event to ask the page to update the likes for the associated media
     {
         let likes = parseInt(this.dataset.likes, 10)
 

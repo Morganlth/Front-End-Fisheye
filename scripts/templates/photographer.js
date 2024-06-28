@@ -1,3 +1,9 @@
+/*
+    The "Photographer" class is an interface containing the information (id, name, city, etc.) of a photographer
+    +
+    a method for returning the HTML code of the portrait in the form of a string.
+*/
+
 
 /*-- #|-CLASS-| --*/
 

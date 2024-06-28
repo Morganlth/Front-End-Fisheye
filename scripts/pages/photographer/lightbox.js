@@ -9,7 +9,7 @@
     // --THIS
     export default function lightbox_init() { lightbox_set() }
 
-    export function lightbox_update(node, id, text)
+    export function lightbox_update(node, id, text) // // open / close the lightbox
     {
         let
         action = '',
@@ -34,13 +34,13 @@
     LIGHTBOX_EVENTS = { keydown: lightbox_e$Keydow }
 
     // --INSIDE
-    const MEDIA = LIGHTBOX.querySelector('.media')
+    const MEDIA = LIGHTBOX?.querySelector('.media')
 
-    const TEXT = LIGHTBOX.querySelector('.text')
+    const TEXT = LIGHTBOX?.querySelector('.text')
 
-    const CLOSE = LIGHTBOX.querySelector('.close')
+    const CLOSE = LIGHTBOX?.querySelector('.close')
     
-    const ARROW_ARROWS = [...LIGHTBOX.querySelectorAll('.arrow')]
+    const ARROW_ARROWS = [...(LIGHTBOX?.querySelectorAll('.arrow') ?? [])]
 
 
 
@@ -50,7 +50,7 @@
     let
     lightbox_EVENTS_OK = false
     ,
-    lightbox_FOCUSABLE = [CLOSE, ...ARROW_ARROWS]
+    lightbox_FOCUSABLE = [CLOSE, ...ARROW_ARROWS] // all focusable elements in the "lightbox"
     ,
     lightbox_FOCUSABLE_INDEX = 0
 
@@ -87,7 +87,7 @@
     function arrow_setEvents(arrow) { arrow?.addEventListener('click', arrow_eClick.bind(arrow, arrow.classList.contains('right'))) }
 
     // --GET
-    function lightbox_getFocusableTarget() // retourne la cible suivante
+    function lightbox_getFocusableTarget() // returns the following target
     {
         if (++lightbox_FOCUSABLE_INDEX >= lightbox_FOCUSABLE.length) lightbox_FOCUSABLE_INDEX = 0
 
@@ -95,7 +95,7 @@
     }
 
     // --UPDATES
-    function media_update(node, id)
+    function media_update(node, id) // change media
     {
         MEDIA.firstElementChild?.remove()
 
@@ -110,7 +110,7 @@
     }
 
 
-    function text_update(text = '') { TEXT.textContent = text }
+    function text_update(text = '') { TEXT.textContent = text } // change text
 
     // --DESTROY
     function lightbox_destroyEvents()
@@ -124,7 +124,7 @@
 //=======@EVENTS|
 
     // --*
-    function lightbox_e$Keydow(e)
+    function lightbox_e$Keydow(e) // updates focus and content (media and text) according to keyboard actions
     {
         switch (e.key)
         {
@@ -145,7 +145,7 @@
 //=======@UTILS|
 
     // --*
-    function lightbox_dispatch(right = true) { EVENTS.events_dispatch(LIGHTBOX, 'lightboxUpdateContent', { currentId: media_CURRENT_ID, right }) } 
+    function lightbox_dispatch(right = true) { EVENTS.events_dispatch(LIGHTBOX, 'lightboxUpdateContent', { currentId: media_CURRENT_ID, right }) } // sends a custom event to the page to request the media change
 
 
     function arrows_iter() { for (const ARROW of ARROW_ARROWS) arrow_set(ARROW) }

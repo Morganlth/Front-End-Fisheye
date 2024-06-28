@@ -15,7 +15,7 @@
 // #\-VARIABLES-\
     
     // --INSIDE
-    let likes
+    let likes // HTML element ".likes"
 
 
 // #\-FUNCTIONS-\
@@ -27,7 +27,7 @@
         likes_set()
     }
 
-    function photographInfos_setHTML(infos = '') { PHOTOGRAPH_INFOS?.insertAdjacentHTML('beforeend', infos) }
+    function photographInfos_setHTML(infos = '') { PHOTOGRAPH_INFOS?.insertAdjacentHTML('beforeend', infos) } // adds the photographer's information to the section
 
 
     function likes_set() { likes_setVars() }
@@ -35,4 +35,4 @@
     function likes_setVars() { likes = PHOTOGRAPH_INFOS?.querySelector('.likes') }
 
     // --UPDATES
-    function likes_update(total = 0) { if (likes instanceof HTMLElement) likes.dataset.likes = total }
+    function likes_update(total = 0) { if (likes instanceof HTMLElement) likes.dataset.likes = total } // updates the number of likes

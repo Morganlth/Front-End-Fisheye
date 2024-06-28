@@ -1,3 +1,10 @@
+/*
+    "PhotographerPage" adds media management to "Photographer"
+    +
+    various methods for generating the different elements of a photographer's page
+*/
+
+
 /*-- #|-CLASS-| --*/
 
 class PhotographerPage extends Photographer
