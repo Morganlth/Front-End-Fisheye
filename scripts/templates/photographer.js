@@ -1,5 +1,3 @@
-/*----------------------------------------------- #||--Photographer--|| */
-
 
 /*-- #|-CLASS-| --*/
 
@@ -10,11 +8,6 @@ class Photographer
 
     // --*
     static __photographer_PICTURE_SRC = 'assets/photographers/'
-
-
-// #\-PRIVATES-\
-
-    // --THIS
 
 
 // #\-PUBLICS-\
@@ -43,22 +36,7 @@ class Photographer
         this.photographer_PICTURE = Photographer.__photographer_PICTURE_SRC + portrait
     }
 
-
-// #\-FUNCTIONS-\
-
-//=======@SETTER|
-
-    // --*
-
-
-//=======@GETTER|
-
-    // --*
-
-
 //=======@LIFE|
-
-    // --SET
 
     // --GET
     photographer_getPortrait()
@@ -71,37 +49,7 @@ class Photographer
             >
         `
     }
-
-    // --UPDATES
-
-    // --TESTS
-
-    // --DESTROY
-
-
-//=======@EVENTS|
-
-    // --*
-
-
-//=======@UTILS|
-
-    // --*
-
-
 }
-
-
-// #\-IMPORTS-\
-
-    // --ENV
-
-    // --SVELTE
-
-    // --LIB
-
-    // --JS
-
 
 // #\-EXPORTS-\
 

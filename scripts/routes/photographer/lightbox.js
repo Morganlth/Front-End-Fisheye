@@ -1,26 +1,7 @@
-/*----------------------------------------------- #||--lightbox--|| */
-
-
 // #\-IMPORTS-\
-
-    // --ENV
-
-    // --DATA
-
-    // --NODE
-
-    // --SVELTE
-
-    // --LIB
 
     // --JS
     import EVENTS from '../../contexts/Events.js'
-
-    // --SCSS
-
-//=======@COMPONENTS|
-
-    // --*
 
 
 // #\-EXPORTS-\
@@ -130,8 +111,6 @@
 
 
     function text_update(text = '') { TEXT.textContent = text }
-
-    // --TESTS
 
     // --DESTROY
     function lightbox_destroyEvents()

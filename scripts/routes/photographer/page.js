@@ -1,17 +1,4 @@
-/*----------------------------------------------- #||--page--|| */
-
-
 // #\-IMPORTS-\
-
-    // --ENV
-
-    // --DATA
-
-    // --NODE
-
-    // --SVELTE
-
-    // --LIB
 
     // --JS
     import EVENTS                                                        from '../../contexts/Events.js'
@@ -23,12 +10,6 @@
     import photographInfos_init  , { photographInfos_update            } from './photographInfos.js'
     import lightbox_init         , { lightbox_update                   } from './lightbox.js'
     import modal_init                                                    from './modal.js'
-
-    // --SCSS
-
-//=======@COMPONENTS|
-
-    // --*
 
 
 // #\-EXPORTS-\
@@ -55,8 +36,6 @@
 
 // #\-CONSTANTES-\
 
-    // --THIS
-
     // --INSIDE
     const BODY_EVENTS =
     {
@@ -72,8 +51,6 @@
     let
     page_PHOTOGRAPHER_ID,
     page_PHOTOGRAPHER
-
-    // --INSIDE
 
 
 // #\-FUNCTIONS-\
@@ -99,12 +76,6 @@
     function body_set() { body_setEvents() }
 
     function body_setEvents() { EVENTS.events_add(BODY_EVENTS, document.body) }
-
-    // --GET
-
-    // --UPDATES
-
-    // --TESTS
 
 
 //=======@EVENTS|

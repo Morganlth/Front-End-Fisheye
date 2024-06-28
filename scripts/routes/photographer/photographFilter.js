@@ -1,26 +1,7 @@
-/*----------------------------------------------- #||--photographFilter--|| */
-
-
 // #\-IMPORTS-\
-
-    // --ENV
-
-    // --DATA
-
-    // --NODE
-
-    // --SVELTE
-
-    // --LIB
 
     // --JS
     import EVENTS from '../../contexts/Events.js'
-
-    // --SCSS
-
-//=======@COMPONENTS|
-
-    // --*
 
 
 // #\-EXPORTS-\
@@ -171,8 +152,6 @@
     function option_updateTabIndex(option) { option.tabIndex = !button_getState() || option === option_SELECTED ? -1 : 0 } // modifie l'attribut tabindex sur l'option
 
     function option_updateAllTabIndex() { for (const OPTION of OPTION_OPTIONS) option_updateTabIndex(OPTION) } // modifie l'attribut tabindex sur chaque option
-
-    // --TESTS
 
 
 //=======@EVENTS|

@@ -1,27 +1,3 @@
-/*----------------------------------------------- #||--photographGallery--|| */
-
-
-// #\-IMPORTS-\
-
-    // --ENV
-
-    // --DATA
-    
-    // --NODE
-
-    // --SVELTE
-
-    // --LIB
-
-    // --JS
-
-    // --SCSS
-
-//=======@COMPONENTS|
-
-    // --*
-
-
 // #\-EXPORTS-\
 
     // --THIS
@@ -92,12 +68,6 @@
         target.button?.addEventListener('click', media_eClick.bind(target.button, id, text))
         target.likes ?.addEventListener('click', likes_eClick.bind(target.likes , id      ))
     }
-
-    // --GET
-
-    // --UPDATES
-
-    // --TESTS
 
 
 //=======@EVENTS|

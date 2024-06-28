@@ -1,15 +1,7 @@
-/*----------------------------------------------- #||--Events--|| */
-
-
 /*-- #|-CLASS-| --*/
 
 class Events
 {
-
-// #\-STATICS-\
-
-    // --*
-
 
 // #\-PRIVATES-\
 
@@ -19,27 +11,10 @@ class Events
     #events_MANAGERS = new Map()
 
 
-// #\-PUBLICS-\
-
-    // --THIS
-
-
 // #\-CONSTRUCTOR-\
 
     // --THIS
     constructor () { this.#events_set() }
-
-
-// #\-FUNCTIONS-\
-
-//=======@SETTER|
-
-    // --*
-
-
-//=======@GETTER|
-
-    // --*
 
 
 //=======@LIFE|
@@ -58,23 +33,12 @@ class Events
 
     #events_setEvents(event) { document.addEventListener(event, this.#events_call.bind(this.#events_MANAGERS.get(event))) }
 
-    // --GET
-
-    // --UPDATES
-
     // --TESTS
     #events_testArgs(events) { return events instanceof Object }
 
     #events_testStringEvent(event = '') { return this.#events_EVENTS.includes(event) }
 
     #events_testCallback(callback) { return callback instanceof Function }
-
-    // --DESTROY
-
-
-//=======@EVENTS|
-
-    // --*
 
 
 //=======@UTILS|
@@ -140,17 +104,6 @@ class Events
 
 
 }
-
-
-// #\-IMPORTS-\
-
-    // --ENV
-
-    // --SVELTE
-
-    // --LIB
-
-    // --JS
 
 
 // #\-EXPORTS-\

@@ -1,26 +1,7 @@
-/*----------------------------------------------- #||--modal--|| */
-
-
 // #\-IMPORTS-\
-
-    // --ENV
-
-    // --DATA
-
-    // --NODE
-
-    // --SVELTE
-
-    // --LIB
 
     // --JS
     import EVENTS from '../../contexts/Events.js'
-
-    // --SCSS
-
-//=======@COMPONENTS|
-
-    // --*
 
 
 // #\-EXPORTS-\
@@ -113,8 +94,6 @@
         modal_updateEvents()
     }
 
-    // --TESTS
-
     // --DESTROY
     function modal_destroyEvents()
     {
@@ -142,8 +121,3 @@
 
 
     function close_eClick() { modal_update(true) }
-
-
-//=======@UTILS|
-
-    // --*

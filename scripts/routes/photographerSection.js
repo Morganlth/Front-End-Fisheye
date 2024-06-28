@@ -1,27 +1,8 @@
-/*----------------------------------------------- #||--photographerSection--|| */
-
-
 // #\-IMPORTS-\
-
-    // --ENV
-
-    // --DATA
-
-    // --NODE
-
-    // --SVELTE
-
-    // --LIB
 
     // --JS
     import { data_get }     from '../utils/data.js'
     import PhotographerCard from '../templates/photographerCard.js'
-
-    // --SCSS
-
-//=======@COMPONENTS|
-
-    // --*
 
 
 // #\-EXPORTS-\
@@ -36,23 +17,12 @@
     const PHOTOGRAPHER_SECTION = document.querySelector('.photographer-section')
 
 
-// #\-VARIABLES-\
-
-    // --THIS
-
-
 // #\-FUNCTIONS-\
 
     // --SET
     function photographerSection_set() { photographerSection_setHTML(...arguments) }
 
     function photographerSection_setHTML(photographer) { PHOTOGRAPHER_SECTION.insertAdjacentHTML('beforeend', new PhotographerCard(photographer).photographer_getUserCard()) }
-
-    // --GET
-
-    // --UPDATES
-
-    // --TESTS
 
 
 //=======@UTILS|

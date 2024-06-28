@@ -1,25 +1,7 @@
-/*----------------------------------------------- #||--PhotographerCard--|| */
-
-
 /*-- #|-CLASS-| --*/
 
 class PhotographerCard extends Photographer
 {
-
-// #\-STATICS-\
-
-    // --*
-
-
-// #\-PRIVATES-\
-
-    // --THIS
-
-
-// #\-PUBLICS-\
-
-    // --THIS
-
 
 // #\-CONSTRUCTOR-\
 
@@ -27,21 +9,7 @@ class PhotographerCard extends Photographer
     constructor (photographer = {}) { super(photographer) }
 
 
-// #\-FUNCTIONS-\
-
-//=======@SETTER|
-
-    // --*
-
-
-//=======@GETTER|
-
-    // --*
-
-
 //=======@LIFE|
-
-    // --SET
 
     // --GET
     photographer_getUserCard()
@@ -83,37 +51,13 @@ class PhotographerCard extends Photographer
             </article>
         `
     }
-
-    // --UPDATES
-
-    // --TESTS
-
-    // --DESTROY
-
-
-//=======@EVENTS|
-
-    // --*
-
-
-//=======@UTILS|
-
-    // --*
-
-
 }
 
 
 // #\-IMPORTS-\
 
-    // --ENV
-
-    // --SVELTE
-
-    // --LIB
-    import Photographer from './photographer.js'
-
     // --JS
+    import Photographer from './photographer.js'
 
 
 // #\-EXPORTS-\

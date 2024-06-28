@@ -1,27 +1,3 @@
-/*----------------------------------------------- #||--photographInfos--|| */
-
-
-// #\-IMPORTS-\
-
-    // --ENV
-
-    // --DATA
-
-    // --NODE
-
-    // --SVELTE
-
-    // --LIB
-
-    // --JS
-
-    // --SCSS
-
-//=======@COMPONENTS|
-
-    // --*
-
-
 // #\-EXPORTS-\
 
     // --THIS
@@ -37,8 +13,6 @@
 
 
 // #\-VARIABLES-\
-
-    // --THIS
     
     // --INSIDE
     let likes
@@ -60,14 +34,5 @@
 
     function likes_setVars() { likes = PHOTOGRAPH_INFOS?.querySelector('.likes') }
 
-    // --GET
-
     // --UPDATES
     function likes_update(total = 0) { if (likes instanceof HTMLElement) likes.dataset.likes = total }
-
-    // --TESTS
-
-
-//=======@UTILS|
-
-    // --*

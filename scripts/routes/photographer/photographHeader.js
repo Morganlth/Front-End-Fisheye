@@ -1,27 +1,3 @@
-/*----------------------------------------------- #||--photographHeader--|| */
-
-
-// #\-IMPORTS-\
-
-    // --ENV
-
-    // --DATA
-
-    // --NODE
-
-    // --SVELTE
-
-    // --LIB
-
-    // --JS
-
-    // --SCSS
-
-//=======@COMPONENTS|
-
-    // --*
-
-
 // #\-EXPORTS-\
 
     // --THIS
@@ -34,11 +10,6 @@
     const PHOTOGRAPH_HEADER = document.querySelector('.photograph-header')
 
 
-// #\-VARIABLES-\
-
-    // --THIS
-
-
 // #\-FUNCTIONS-\
 
     // --SET
@@ -49,14 +20,3 @@
         PHOTOGRAPH_HEADER?.insertAdjacentHTML('afterbegin', profil  )
         PHOTOGRAPH_HEADER?.insertAdjacentHTML('beforeend' , portrait)
     }
-
-    // --GET
-
-    // --UPDATES
-
-    // --TESTS
-
-
-//=======@UTILS|
-
-    // --*

@@ -1,6 +1,3 @@
-/*----------------------------------------------- #||--PhotographerPage--|| */
-
-
 /*-- #|-CLASS-| --*/
 
 class PhotographerPage extends Photographer
@@ -10,16 +7,6 @@ class PhotographerPage extends Photographer
 
     // --*
     #photographer_MEDIA = []
-
-
-// #\-PRIVATES-\
-
-    // --THIS
-
-
-// #\-PUBLICS-\
-
-    // --THIS
 
 
 // #\-CONSTRUCTOR-\
@@ -39,13 +26,6 @@ class PhotographerPage extends Photographer
     }
 
 
-// #\-FUNCTIONS-\
-
-//=======@SETTER|
-
-    // --*
-
-
 //=======@GETTER|
 
     // --*
@@ -53,8 +33,6 @@ class PhotographerPage extends Photographer
 
 
 //=======@LIFE|
-
-    // --SET
 
     // --GET
     static __photographer_getHeart()
@@ -197,15 +175,6 @@ class PhotographerPage extends Photographer
         if (MEDIA) MEDIA.likes = likes
     }
 
-    // --TESTS
-
-    // --DESTROY
-
-
-//=======@EVENTS|
-
-    // --*
-
 
 //=======@UTILS|
 
@@ -217,12 +186,6 @@ class PhotographerPage extends Photographer
 
 
 // #\-IMPORTS-\
-
-    // --ENV
-
-    // --SVELTE
-
-    // --LIB
 
     // --JS
     import Photographer from './photographer.js'
