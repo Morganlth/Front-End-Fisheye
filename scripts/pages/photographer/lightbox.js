@@ -11,16 +11,11 @@
 
     export function lightbox_update(node, id, text) // // open / close the lightbox
     {
-        let
-        action = '',
-        lightbox_updateEvents
+        const SHOW = id != null && node instanceof HTMLElement
 
-        ;[document.documentElement.style.overflowY, action, lightbox_updateEvents] = id && node ? ['hidden', 'remove', lightbox_setEvents] : ['auto', 'add', lightbox_destroyEvents]
+        if (SHOW !== lightbox_SHOW) lightbox_updateDisplay(SHOW)
 
-        LIGHTBOX.classList[action]('hidden')
-
-        lightbox_updateEvents()
-        media_update(node, id)
+        media_update(SHOW, node, id)
         text_update(text)
     }
 
@@ -48,11 +43,14 @@
 
     // --THIS
     let
-    lightbox_EVENTS_OK = false
+    lightbox_EVENTS_OK = false,
+    lightbox_SHOW      = false
     ,
     lightbox_FOCUSABLE = [CLOSE, ...ARROW_ARROWS] // all focusable elements in the "lightbox"
     ,
     lightbox_FOCUSABLE_INDEX = 0
+    ,
+    lightbox_LAST_ELEMENT_FOCUS
 
     // --INSIDE
     let media_CURRENT_ID
@@ -95,11 +93,39 @@
     }
 
     // --UPDATES
-    function media_update(node, id) // change media
+    function lightbox_updateDisplay(show = false)
+    {
+        const INDEX = lightbox_FOCUSABLE.length - 1
+
+        let
+        action = '',
+        lightbox_updateEvents,
+        focus_TARGET
+
+        ; [document.documentElement.style.overflowY, action  , lightbox_updateEvents , focus_TARGET               ] = show
+        ? ['hidden'                                , 'remove', lightbox_setEvents    , lightbox_FOCUSABLE[INDEX]  ]
+        : ['auto'                                  , 'add'   , lightbox_destroyEvents, lightbox_LAST_ELEMENT_FOCUS]
+
+        LIGHTBOX.classList[action]('hidden')
+
+        focus_TARGET?.focus()
+
+        lightbox_SHOW = show
+
+        if (show)
+        {
+            lightbox_FOCUSABLE_INDEX    = INDEX
+            lightbox_LAST_ELEMENT_FOCUS = document.activeElement
+        }
+
+        lightbox_updateEvents()
+    }
+
+    function media_update(show = false, node, id) // change media
     {
         MEDIA.firstElementChild?.remove()
 
-        if (id != null && node instanceof HTMLElement)
+        if (show)
         {
             if (node instanceof HTMLVideoElement) node.controls = 'controls'
 

@@ -136,6 +136,7 @@ class PhotographerPage extends Photographer
                         <button
                         class="likes"
                         aria-label="likes"
+                        aria-live="polite"
                         data-liked="false"
                         data-likes="${likes}"
                         >

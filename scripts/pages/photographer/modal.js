@@ -36,6 +36,8 @@
     modal_FOCUSABLE = [CLOSE, ...MODAL.querySelectorAll('input, textarea, button:not(.close)')]
     ,
     modal_FOCUSABLE_INDEX = 0
+    ,
+    modal_LAST_ELEMENT_FOCUS
 
 
 // #\-FUNCTIONS-\
@@ -83,14 +85,27 @@
     // --UPDATES
     function modal_update(hidden = true) // open / close the modal
     {
+        const INDEX = 1
+    
         let
         action = '',
-        modal_updateEvents
+        modal_updateEvents,
+        focus_TARGET
 
-        ;[document.documentElement.style.overflowY, action, modal_updateEvents] = hidden ? ['auto', 'add', modal_destroyEvents] : ['hidden', 'remove', modal_setEvents]
+        ; [document.documentElement.style.overflowY, action  , modal_updateEvents , focus_TARGET            ] = hidden
+        ? ['auto'                                  , 'add'   , modal_destroyEvents, modal_LAST_ELEMENT_FOCUS]
+        : ['hidden'                                , 'remove', modal_setEvents    , modal_FOCUSABLE[INDEX]  ]
 
         MODAL.classList[action]('hidden')
 
+        focus_TARGET?.focus()
+
+        if (!hidden)
+        {
+            modal_FOCUSABLE_INDEX    = INDEX
+            modal_LAST_ELEMENT_FOCUS = document.activeElement
+        }
+    
         modal_updateEvents()
     }
 
