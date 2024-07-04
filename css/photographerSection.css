@@ -4,7 +4,7 @@
     grid-template-columns: 1fr 1fr 1fr;
     gap                  : 70px;
 
-    margin-top: 100px;
+    margin-block: 100px;
 }
 
 .photographer-section .photographer
