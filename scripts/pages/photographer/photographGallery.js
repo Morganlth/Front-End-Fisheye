@@ -39,6 +39,7 @@
         photographGallery_setHTML(gallery)
         photographGallery_setVars(media)
         media_iter()
+        photographGallery_update()
     }
 
     function photographGallery_setHTML(gallery = '') { PHOTOGRAPH_GALLERY?.insertAdjacentHTML('beforeend', gallery) } // adds the photographer's media to the section
